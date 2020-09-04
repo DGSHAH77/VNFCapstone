@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- 	    <property name="LOG_HOME" value="/apps/opt/jenkins/rms/logs " /> Will change in future for dockerization -->
+		<!-- 	Subasis  Please dont checkin this file while if you edit the same in your local for windows, need to add gitignore for it   -->
+		
+		<!--  To view logs in local comment below line appropriately -->
+		 	<property name="LOG_HOME" value="/apps/opt/application/wholesale-bc/logs/WholesaleBCBatch" />  
+			 <!--  <property name="LOG_HOME" value="D://Blockchain//"></property>  -->
+
+	<appender name="FILE-AUDIT"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_HOME}/WholesaleBCBatch.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} - %msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${LOG_HOME}/archived/WholesaleBCBatch.%d{yyyy-MM-dd}.%i.log
+                        </fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+
+	<logger name="com.verizon.wholsale.bc.batch" level="debug"
+		additivity="false">
+		<appender-ref ref="FILE-AUDIT" />
+	</logger>
+
+	<root level="error">
+		<appender-ref ref="FILE-AUDIT" />
+	</root>
+
+</configuration>
